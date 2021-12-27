@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StudentDao {
 
-    public Student findById(Integer id){
+    public Student findById(int id){
         Session session = HibernateSessionFactory.getSession().openSession();
         return session.find(Student.class, id);
     }
@@ -32,10 +32,11 @@ public class StudentDao {
         return session.createQuery("From Students").list();
     }
 
-    public void delete(Integer id){
+    public void deleteById(int id){
         Session session = HibernateSessionFactory.getSession().openSession();
         session.beginTransaction();
-        session.delete(id);
+        Student student = findById(id);
+        session.delete(student);
         session.getTransaction().commit();
     }
 
